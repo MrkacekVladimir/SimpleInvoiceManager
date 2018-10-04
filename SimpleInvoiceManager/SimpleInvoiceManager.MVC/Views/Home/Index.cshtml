@@ -1,0 +1,22 @@
+﻿@model HomeViewModel
+<h1>Invoices</h1>
+<table id="invoiceList" class="table table-striped thead-dark">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Customer Name</th>
+            <th>Total Price</th>
+            <th>Invoice Date</th>
+            <th>Payment Due Date</th>            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var invoice in Model.Invoices)
+        {
+            <tr>
+                <th>@invoice.InvoiceNumber</th>
+                <td>@invoice.Customer.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>
