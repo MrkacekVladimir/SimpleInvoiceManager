@@ -8,7 +8,7 @@ namespace SimpleInvoiceManager.Models.Database
 {
     public abstract class DatabaseEntity
     {
-        [Key, Column(Order = 1)]        
+        [Key]        
         public int ID { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }

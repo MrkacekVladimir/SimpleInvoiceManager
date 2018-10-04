@@ -8,8 +8,7 @@ namespace SimpleInvoiceManager.Models.Database
 {
     public class Invoice: DatabaseEntity
     {       
-        [Required]
-        [Key, Column(Order = 1)]
+        [Required]        
         public int InvoiceNumber { get; set; }
         public int CustomerID { get; set; }
         [Required]

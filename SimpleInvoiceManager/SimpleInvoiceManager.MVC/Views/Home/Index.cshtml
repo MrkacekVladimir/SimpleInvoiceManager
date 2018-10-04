@@ -1,5 +1,8 @@
 ﻿@model HomeViewModel
 <h1>Invoices</h1>
+<button class="btn btn-info">New invoice</button>
+@if (Model.Invoices.Count() > 0)
+{
 <table id="invoiceList" class="table table-striped thead-dark">
     <thead>
         <tr>
@@ -7,7 +10,8 @@
             <th>Customer Name</th>
             <th>Total Price</th>
             <th>Invoice Date</th>
-            <th>Payment Due Date</th>            
+            <th>Payment Due Date</th>    
+            <th colspan="2">Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -16,7 +20,21 @@
             <tr>
                 <th>@invoice.InvoiceNumber</th>
                 <td>@invoice.Customer.Name</td>
+                <td>@invoice.Items.Sum(x => x.Total)</td>
+                <td>@invoice.InvoiceDate.ToShortDateString()</td>
+                <td>@invoice.PaymentDueDate.ToShortDateString()</td>
+                <td>
+                    <button asp-controller="Invoice" asp-action="Details" asp-route-id=@invoice.InvoiceNumber>Details</button>
+                </td>
+                <td>
+                    <button asp-controller="Invoice" asp-action="Edit" asp-route-id=@invoice.InvoiceNumber>Edit</button>
+                </td>
             </tr>
         }
     </tbody>
 </table>
+}
+else {
+    <hr />
+    <h2>There are no invoices in the database.</h2>
+}
