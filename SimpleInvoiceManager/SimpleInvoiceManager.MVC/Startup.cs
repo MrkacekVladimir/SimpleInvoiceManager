@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -24,15 +25,12 @@ namespace SimpleInvoiceManager.MVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
-
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            HttpClient client = new HttpClient { BaseAddress = new Uri("http://localhost:44888/api/") };
+            client.DefaultRequestHeaders.Add("secureKey", "PragueLabsSecretAPIKey");
+
+            services.AddSingleton<HttpClient>(client);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

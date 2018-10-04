@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SimpleInvoiceManager.Models.Database
 {
-    public class Customer: DatabaseEntity
+    public class Customer : DatabaseEntity
     {
         [Required]
         public string Name { get; set; }        

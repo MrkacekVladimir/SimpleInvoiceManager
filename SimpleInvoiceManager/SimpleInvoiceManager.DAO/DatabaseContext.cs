@@ -12,11 +12,16 @@ namespace SimpleInvoiceManager.DAO
         {
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        public DatabaseContext()
         {
-            modelBuilder.Entity<Customer>().Property(p => p.CreatedAt).HasDefaultValueSql("GETDATE()");
-            modelBuilder.Entity<Invoice>().Property(p => p.CreatedAt).HasDefaultValueSql("GETDATE()");
-            modelBuilder.Entity<InvoiceItem>().Property(p => p.CreatedAt).HasDefaultValueSql("GETDATE()");
+
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {            
+            modelBuilder.Entity<Customer>().Property(p => p.CreatedAt).HasDefaultValueSql("GETDATE()").ValueGeneratedOnAdd();
+            modelBuilder.Entity<Invoice>().Property(p => p.CreatedAt).HasDefaultValueSql("GETDATE()").ValueGeneratedOnAdd();
+            modelBuilder.Entity<InvoiceItem>().Property(p => p.CreatedAt).HasDefaultValueSql("GETDATE()").ValueGeneratedOnAdd();
         }
 
         #region DbSets

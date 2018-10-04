@@ -6,15 +6,18 @@ using System.ComponentModel.DataAnnotations;
 namespace SimpleInvoiceManager.Models.Database
 {
     public class Invoice: DatabaseEntity
-    {       
+    {
         [Required]        
+        [DisplayName("Invoice number")]
         public int InvoiceNumber { get; set; }
         public int CustomerID { get; set; }
         [Required]
         [DataType(DataType.Date)]
+        [DisplayName("Invoice date")]
         public DateTime InvoiceDate { get; set; }
         [Required]
         [DataType(DataType.Date)]
+        [DisplayName("Payment due date")]
         public DateTime PaymentDueDate { get; set; }
         [Required]        
         public int Tax { get; set; }

@@ -7,7 +7,7 @@ using System.Text;
 namespace SimpleInvoiceManager.Models.Database
 {
     public abstract class DatabaseEntity
-    {
+    {        
         [Key]        
         public int ID { get; set; }
         public DateTime CreatedAt { get; set; }

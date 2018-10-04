@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SimpleInvoiceManager.DAO;
+using SimpleInvoiceManager.WebApi.Helpers;
 
 namespace SimpleInvoiceManager.WebApi
 {
@@ -28,7 +31,7 @@ namespace SimpleInvoiceManager.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddDbContext<DatabaseContext>(opt => opt.UseSqlServer(Configuration["ConnectionStrings:LocalDB"]));
+            services.AddDbContext<DatabaseContext>(opt => opt.UseSqlServer(Configuration["ConnectionStrings:LocalDB"]));                        
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,8 +46,12 @@ namespace SimpleInvoiceManager.WebApi
                 app.UseHsts();
             }
 
+            app.UseSecureKeyMiddleware();
             app.UseHttpsRedirection();
-            app.UseMvc();
+            app.UseMvc(routes => routes.MapRoute(
+                name: "default",
+                template: "api/{controller=Home}/{action=Index}/{id?}"
+                ));
         }
     }
 }

@@ -1,8 +1,5 @@
-﻿@model List<SimpleInvoiceManager.Models.Database.Invoice>
-
-<a class="btn btn-info" asp-action="Create" asp-controller="Invoice">
-    New invoice
-</a>
+﻿@model IEnumerable<SimpleInvoiceManager.Models.Database.Invoice>
+<h1>Not paid invoices</h1>
 @if (Model.Count() > 0)
 {
     <table id="invoiceList" class="table table-striped thead-dark">
@@ -26,9 +23,7 @@
                     <td>@invoice.InvoiceDate.ToShortDateString()</td>
                     <td>@invoice.PaymentDueDate.ToShortDateString()</td>
                     <td>
-                        <a class="btn btn-info" asp-action="Create" asp-controller="Invoice" asp-route-invoice=@invoice.ID>
-                            Details
-                        </a>
+                        <button asp-controller="Invoice" asp-action="Edit" asp-route-invoice=@invoice.ID>Details</button>
                     </td>
                 </tr>
             }

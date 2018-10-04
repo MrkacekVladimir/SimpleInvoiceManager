@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleInvoiceManager.MVC", "SimpleInvoiceManager.MVC\SimpleInvoiceManager.MVC.csproj", "{ACA0FDF9-7C0A-48C8-86B8-8C8552BA6F11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleInvoiceManager.MVC", "SimpleInvoiceManager.MVC\SimpleInvoiceManager.MVC.csproj", "{ACA0FDF9-7C0A-48C8-86B8-8C8552BA6F11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleInvoiceManager.WebApi", "SimpleInvoiceManager.WebApi\SimpleInvoiceManager.WebApi.csproj", "{6B2C406F-076F-4F7C-BC92-44B893FE0852}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleInvoiceManager.WebApi", "SimpleInvoiceManager.WebApi\SimpleInvoiceManager.WebApi.csproj", "{6B2C406F-076F-4F7C-BC92-44B893FE0852}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleInvoiceManager.Models", "SimpleInvoiceManager.Models\SimpleInvoiceManager.Models.csproj", "{20515C36-E3C0-4516-AC3E-D0682E2FFC8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleInvoiceManager.Models", "SimpleInvoiceManager.Models\SimpleInvoiceManager.Models.csproj", "{20515C36-E3C0-4516-AC3E-D0682E2FFC8D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleInvoiceManager.DAO", "SimpleInvoiceManager.DAO\SimpleInvoiceManager.DAO.csproj", "{BA96443C-B8BE-4CFE-AA89-2C5966A2D6A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleInvoiceManager.DAO", "SimpleInvoiceManager.DAO\SimpleInvoiceManager.DAO.csproj", "{BA96443C-B8BE-4CFE-AA89-2C5966A2D6A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

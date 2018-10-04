@@ -1,29 +1,63 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using SimpleInvoiceManager.Models.Database;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace SimpleInvoiceManager.MVC.Controllers
 {
     public class InvoiceController : Controller
     {
+        #region Constructor & readonly properties
+
+        private readonly HttpClient _client;
+        public InvoiceController(HttpClient client)
+        {
+            _client = client;
+        }
+
+        #endregion
+
         public IActionResult Index()
         {
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpGet]
-        public IActionResult Edit(Invoice invoice)
+        public async Task<IActionResult> Edit(int? id)
         {
-            return View(invoice);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            HttpResponseMessage response = await _client.GetAsync("invoice/getbyid/" + id);
+            string content = await response.Content.ReadAsStringAsync();
+
+            return View(JsonConvert.DeserializeObject<Invoice>(content));
         }
 
-        [HttpPatch]
-        public async Task<IActionResult> PatchInvoice(Invoice invoice)
+        [HttpGet]
+        public IActionResult Create()
         {
-            return View(invoice);
+            return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(Invoice invoice)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);            
+
+            return View();
+        }
+
+
+        public async Task<IActionResult> NotPaid()
+        {
+            HttpResponseMessage response = await _client.GetAsync("invoice/getnotpaid/");
+            string content = await response.Content.ReadAsStringAsync();
+
+            return View();
+        }
+
+
     }
 }

@@ -7,28 +7,30 @@
     <partial name="_HeadConfigPartial" />
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Simple Invoice Manager</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                </ul>
-            </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" asp-action="Index" asp-controller="Home">Simple Invoice Manager</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" asp-action="Index" asp-controller="Home">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="invoiceDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Invoices
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="invoiceDropdown">
+                        <a class="dropdown-item" asp-action="Create" asp-controller="Invoice">New</a>
+                        <a class="dropdown-item" asp-action="NotPaid" asp-controller="Invoice">View only not paid</a>
+                    </div>
+                </li>
+            </ul>
         </div>
     </nav>
 
-    <partial name="_CookieConsentPartial" />
-
-    <main class="container body-content">
+    <main class="container">
         @RenderBody()
         <hr />
         <footer>
