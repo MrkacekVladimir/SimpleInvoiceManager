@@ -12,10 +12,12 @@ namespace SimpleInvoiceManager.WebApi.Helpers
     public class SecureKeyMiddleware
     {
         private readonly RequestDelegate _next;
+        private readonly string _secureKey;
 
-        public SecureKeyMiddleware(RequestDelegate next)
+        public SecureKeyMiddleware(RequestDelegate next,string secureKey)
         {
             _next = next;
+            _secureKey = secureKey;
         }
 
         public Task Invoke(HttpContext httpContext)
@@ -23,7 +25,7 @@ namespace SimpleInvoiceManager.WebApi.Helpers
             string secureKey = "PragueLabsSecretAPIKey";
             IHeaderDictionary headers = httpContext.Request.Headers;
             bool contains = headers.ContainsKey("secureKey");
-            if (!contains)
+            if (!contains || headers["secureKey"] != _secureKey)
             {
                 httpContext.Response.StatusCode = 401;
                 httpContext.Response.WriteAsync("Invalid secure key", Encoding.UTF8);
@@ -38,9 +40,9 @@ namespace SimpleInvoiceManager.WebApi.Helpers
     // Extension method used to add the middleware to the HTTP request pipeline.
     public static class SecureKeyMiddlewareExtensions
     {
-        public static IApplicationBuilder UseSecureKeyMiddleware(this IApplicationBuilder builder)
+        public static IApplicationBuilder UseSecureKeyMiddleware(this IApplicationBuilder builder, string secureKey)
         {
-            return builder.UseMiddleware<SecureKeyMiddleware>();
+            return builder.UseMiddleware<SecureKeyMiddleware>(secureKey);
         }
     }
 }

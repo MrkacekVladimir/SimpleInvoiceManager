@@ -46,7 +46,7 @@ namespace SimpleInvoiceManager.WebApi
                 app.UseHsts();
             }
 
-            app.UseSecureKeyMiddleware();
+            app.UseSecureKeyMiddleware(Configuration["WebApiConfiguration:ApiSecureKey"]);
             app.UseHttpsRedirection();
             app.UseMvc(routes => routes.MapRoute(
                 name: "default",
