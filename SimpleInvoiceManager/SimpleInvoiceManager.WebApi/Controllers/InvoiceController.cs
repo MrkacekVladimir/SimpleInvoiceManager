@@ -27,7 +27,10 @@ namespace SimpleInvoiceManager.WebApi.Controllers
 
         public async Task<JsonResult> GetAll()
         {
-            List<Invoice> invoices = await _context.Invoices.ToListAsync();
+            List<Invoice> invoices = await _context.Invoices
+                .Include(c => c.Customer)
+                .Include(i => i.Items)
+                .ToListAsync();
             return Json(invoices);
         }
 
@@ -37,7 +40,10 @@ namespace SimpleInvoiceManager.WebApi.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            Invoice invoice = await _context.Invoices.FirstOrDefaultAsync(x => x.ID == id);
+            Invoice invoice = await _context.Invoices
+                .Include(c => c.Customer)
+                .Include(i => i.Items)
+                .FirstOrDefaultAsync(x => x.ID == id);
             return Json(invoice);
         }        
 
@@ -53,12 +59,16 @@ namespace SimpleInvoiceManager.WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetNotPaid()
         {
-            List<Invoice> invoices = await _context.Invoices.Where(x => x.PaymentStatus == false).ToListAsync();
+            List<Invoice> invoices = await _context.Invoices
+                .Include(c => c.Customer)
+                .Include(i => i.Items)
+                .Where(x => x.PaymentStatus == false)
+                .ToListAsync();
             return Json(invoices);
         }
 
         [HttpPatch]
-        public async Task<IActionResult> PatchInvoice(Invoice invoice)
+        public async Task<IActionResult> PatchInvoice([FromBody]Invoice invoice)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -75,7 +85,8 @@ namespace SimpleInvoiceManager.WebApi.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            Invoice invoice = await _context.Invoices.FirstOrDefaultAsync(x => x.ID == id);
+            Invoice invoice = await _context.Invoices
+                .FirstOrDefaultAsync(x => x.ID == id);
             invoice.PaymentStatus = true;
 
             await _context.SaveChangesAsync();

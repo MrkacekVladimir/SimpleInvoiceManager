@@ -57,6 +57,19 @@ namespace SimpleInvoiceManager.MVC.Controllers
             return BadRequest();
         }
 
+        public async Task<IActionResult> Edit(Invoice invoice)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            StringContent content = new StringContent(JsonConvert.SerializeObject(invoice), System.Text.Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await _client.PostAsJsonAsync<Invoice>("invoice/edit", invoice);
+
+            if(response.StatusCode == System.Net.HttpStatusCode.OK)
+                return RedirectToAction("Index", "Home");
+
+            return BadRequest();
+        }
 
         public async Task<IActionResult> NotPaid()
         {

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +9,12 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SimpleInvoiceManager.DAO;
 using SimpleInvoiceManager.WebApi.Helpers;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace SimpleInvoiceManager.WebApi
 {
@@ -31,7 +31,7 @@ namespace SimpleInvoiceManager.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddDbContext<DatabaseContext>(opt => opt.UseSqlServer(Configuration["ConnectionStrings:LocalDB"]).UseLazyLoadingProxies());                        
+            services.AddDbContext<DatabaseContext>(opt => opt.UseSqlServer(Configuration["ConnectionStrings:LocalDB"]));                        
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
