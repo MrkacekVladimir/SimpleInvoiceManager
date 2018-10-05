@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -41,12 +42,8 @@ namespace SimpleInvoiceManager.WebApi.Controllers
         }        
 
         [HttpPost]
-        public async Task<IActionResult> Create(string jsonObject)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            Invoice invoice = JsonConvert.DeserializeObject<Invoice>(jsonObject);
+        public async Task<IActionResult> Create([FromBody]Invoice invoice)
+        {                                    
             _context.Invoices.Add(invoice);
             await _context.SaveChangesAsync();
 

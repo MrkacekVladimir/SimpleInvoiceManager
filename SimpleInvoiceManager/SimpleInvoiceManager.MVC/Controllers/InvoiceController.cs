@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using SimpleInvoiceManager.Models.Database;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace SimpleInvoiceManager.MVC.Controllers
@@ -45,9 +46,15 @@ namespace SimpleInvoiceManager.MVC.Controllers
         public async Task<IActionResult> Create(Invoice invoice)
         {
             if (!ModelState.IsValid)
-                return BadRequest(ModelState);            
+                return BadRequest(ModelState);
 
-            return View();
+            StringContent content = new StringContent(JsonConvert.SerializeObject(invoice), System.Text.Encoding.UTF8, "application/json");            
+            HttpResponseMessage response = await _client.PostAsJsonAsync<Invoice>("invoice/create", invoice);
+
+            if(response.StatusCode == System.Net.HttpStatusCode.Created)
+                return RedirectToAction("Index", "Home");
+
+            return BadRequest();
         }
 
 

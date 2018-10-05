@@ -46,7 +46,7 @@ function handleNewInvoiceItem(event)
 
     let perUnitElement = document.createElement('td');    
     newPerUnitInputElement = document.createElement('input');    
-    newPerUnitInputElement.value = perUnitInput.value;// + ' CZK';
+    newPerUnitInputElement.value = perUnitInput.value;
     newPerUnitInputElement.name = 'Items[' + invoiceItemId + '].PricePerUnit';
     newPerUnitInputElement.readOnly = true;
     newPerUnitInputElement.classList.add('form-control');
@@ -54,7 +54,7 @@ function handleNewInvoiceItem(event)
 
     let totalPrizeElement = document.createElement('td');       
     newTotalPrizeInputElement = document.createElement('input');    
-    newTotalPrizeInputElement.value = (parseFloat(quantityInput.value) * parseFloat(perUnitInput.value)).toString() + ' CZK';
+    newTotalPrizeInputElement.value = (parseFloat(quantityInput.value) * parseFloat(perUnitInput.value)).toString();
     newTotalPrizeInputElement.name = 'Items[' + invoiceItemId + '].Total';
     newTotalPrizeInputElement.readOnly = true;
     newTotalPrizeInputElement.classList.add('form-control');

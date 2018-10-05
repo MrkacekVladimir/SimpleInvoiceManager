@@ -27,25 +27,5 @@ namespace SimpleInvoiceManager.MVC.Controllers
             List<Invoice> Invoices = JsonConvert.DeserializeObject<List<Invoice>>(content);
             return View(Invoices);
         }
-
-        [HttpGet]
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create(Invoice invoice)
-        {
-            if (!ModelState.IsValid)
-                return RedirectToAction("Error", "Error");
-
-            HttpResponseMessage response = await _client.PostAsync(
-                "invoice/create", 
-                new StringContent(JsonConvert.SerializeObject(invoice), Encoding.UTF8, "application/json")
-                );
-
-            return RedirectToAction("Index", "Home");
-        }
     }
 }

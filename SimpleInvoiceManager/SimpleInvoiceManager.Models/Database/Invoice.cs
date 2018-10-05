@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SimpleInvoiceManager.Models.Database
 {
@@ -26,6 +27,7 @@ namespace SimpleInvoiceManager.Models.Database
         public bool PaymentStatus { get; set; }
 
         public ICollection<InvoiceItem> Items { get; set; }
-        public virtual Customer Customer { get; set; }        
+        [ForeignKey("CustomerID")]
+        public Customer Customer { get; set; }        
     }
 }
