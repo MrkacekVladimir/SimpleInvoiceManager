@@ -27,8 +27,8 @@ namespace SimpleInvoiceManager.MVC
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            HttpClient client = new HttpClient { BaseAddress = new Uri("http://localhost:58680/api/") };
-            client.DefaultRequestHeaders.Add("secureKey", "PragueLabsSecretAPIKey");
+            HttpClient client = new HttpClient { BaseAddress = new Uri(Configuration["WebApiConfiguration:ApiUri"]) };
+            client.DefaultRequestHeaders.Add("secureKey", Configuration["WebApiConfiguration:ApiSecureKey"]);
 
             services.AddSingleton<HttpClient>(client);
         }

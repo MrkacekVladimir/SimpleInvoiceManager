@@ -23,7 +23,8 @@ namespace SimpleInvoiceManager.Models.Database
         [RegularExpression(@"[1-9]{1}[0-9]{2} [0-9]{2}$",ErrorMessage = "Type ZIP Code in correct format.(Eg. 123 45)")]
         public string ZipCode { get; set; }
         [Required]
-        [Phone]        
+        [Phone]
+        [DisplayName("Phone number")]
         public string PhoneNumber { get; set; }
     }
 }

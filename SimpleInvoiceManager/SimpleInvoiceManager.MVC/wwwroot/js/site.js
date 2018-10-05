@@ -93,7 +93,9 @@ function clearInvoiceItemInputs() {
 }
 
 document.getElementById('newInvoiceItemQuantity').addEventListener('change', handlePriceChange);
+document.getElementById('newInvoiceItemQuantity').addEventListener('keyup', handlePriceChange);
 document.getElementById('newInvoiceItemPrice').addEventListener('change', handlePriceChange);
+document.getElementById('newInvoiceItemPrice').addEventListener('keyup', handlePriceChange);
 function handlePriceChange(event)
 {     
     let quantityInputValue = document.getElementById('newInvoiceItemQuantity').value;

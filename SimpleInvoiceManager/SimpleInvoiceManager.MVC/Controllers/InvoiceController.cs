@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SimpleInvoiceManager.Models.Database;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -54,8 +55,8 @@ namespace SimpleInvoiceManager.MVC.Controllers
         {
             HttpResponseMessage response = await _client.GetAsync("invoice/getnotpaid/");
             string content = await response.Content.ReadAsStringAsync();
-
-            return View();
+            List<Invoice> Invoices = JsonConvert.DeserializeObject<List<Invoice>>(content);
+            return View(Invoices);
         }
 
 
