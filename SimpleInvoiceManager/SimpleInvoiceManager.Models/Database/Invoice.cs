@@ -26,7 +26,7 @@ namespace SimpleInvoiceManager.Models.Database
         [DisplayName("Paid")]
         public bool PaymentStatus { get; set; }
 
-        public ICollection<InvoiceItem> Items { get; set; }
+        public List<InvoiceItem> Items { get; set; }
         [ForeignKey("CustomerID")]
         public Customer Customer { get; set; }        
     }

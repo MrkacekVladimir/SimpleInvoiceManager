@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SimpleInvoiceManager.Models.Database;
 using System.Collections.Generic;
@@ -25,6 +25,7 @@ namespace SimpleInvoiceManager.MVC.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
             if (!ModelState.IsValid)
@@ -34,6 +35,20 @@ namespace SimpleInvoiceManager.MVC.Controllers
             string content = await response.Content.ReadAsStringAsync();
 
             return View(JsonConvert.DeserializeObject<Invoice>(content));
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(Invoice invoice)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            StringContent content = new StringContent(JsonConvert.SerializeObject(invoice), System.Text.Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await _client.PatchAsync("invoice/patchinvoice", content);
+
+            if(response.StatusCode == System.Net.HttpStatusCode.OK)
+                return RedirectToAction("Index", "Home");
+
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
@@ -54,22 +69,9 @@ namespace SimpleInvoiceManager.MVC.Controllers
             if(response.StatusCode == System.Net.HttpStatusCode.Created)
                 return RedirectToAction("Index", "Home");
 
-            return BadRequest();
+            return RedirectToAction("Index", "Home");
         }
 
-        public async Task<IActionResult> Edit(Invoice invoice)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            StringContent content = new StringContent(JsonConvert.SerializeObject(invoice), System.Text.Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await _client.PostAsJsonAsync<Invoice>("invoice/edit", invoice);
-
-            if(response.StatusCode == System.Net.HttpStatusCode.OK)
-                return RedirectToAction("Index", "Home");
-
-            return BadRequest();
-        }
 
         public async Task<IActionResult> NotPaid()
         {

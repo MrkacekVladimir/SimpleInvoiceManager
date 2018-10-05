@@ -107,3 +107,7 @@ function handlePriceChange(event)
 function isEmptyOrSpaces(str) {
     return str === null || str.match(/^ *$/) !== null;
 }
+
+function removeElementyByID(id) {    
+    document.getElementById(id).remove();
+}

@@ -26,7 +26,7 @@
                     <td>@invoice.InvoiceDate.ToShortDateString()</td>
                     <td>@invoice.PaymentDueDate.ToShortDateString()</td>
                     <td>
-                        <a class="btn btn-info" asp-action="Create" asp-controller="Invoice" asp-route-invoice=@invoice.ID>
+                        <a class="btn btn-info" asp-action="Edit" asp-controller="Invoice" asp-route-id=@invoice.ID>
                             Details
                         </a>
                     </td>

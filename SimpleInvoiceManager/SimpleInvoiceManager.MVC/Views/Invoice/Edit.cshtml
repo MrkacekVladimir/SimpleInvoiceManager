@@ -4,31 +4,124 @@
     ViewData["Title"] = "Edit";
 }
 
-<h4>Invoice #@Model.InvoiceNumber</h4>
+<h2>Editing invoice #@Model.InvoiceNumber</h2>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
+    <div class="col-md-12">
+        <form asp-action="Edit" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="InvoiceNumber" class="control-label"></label>
-                <input asp-for="InvoiceNumber" class="form-control" />
+                <input asp-for="InvoiceNumber" class="form-control" value=@Model.InvoiceNumber placeholder="Enter the number of invoice" />
                 <span asp-validation-for="InvoiceNumber" class="text-danger"></span>
             </div>
-
             <div class="form-group">
                 <label asp-for="InvoiceDate" class="control-label"></label>
-                <input asp-for="InvoiceDate" class="form-control" />
+                <input asp-for="InvoiceDate" value=@Model.InvoiceDate.ToString("yyyy-MM-dd") class="form-control" />
                 <span asp-validation-for="InvoiceDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PaymentDueDate" class="control-label"></label>
-                <input asp-for="PaymentDueDate" class="form-control" />
+                <input asp-for="PaymentDueDate" value=@Model.PaymentDueDate.ToString("yyyy-MM-dd") class="form-control" />
                 <span asp-validation-for="PaymentDueDate" class="text-danger"></span>
+            </div>
+            <div id="customerWrapper">
+                <label class="control-label m-2"><b>Customer</b></label>
+                <hr />
+                <div class="form-group">
+                    <label asp-for="Customer.Name" class="control-label"></label>
+                    <input asp-for="Customer.Name" class="form-control" value=@Model.Customer.Name placeholder="Enter customers company name" />
+                    <span asp-validation-for="Customer.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Customer.StreetAddress" class="control-label"></label>
+                    <input asp-for="Customer.StreetAddress" class="form-control" value=@Model.Customer.StreetAddress placeholder="Enter customers street address" />
+                    <span asp-validation-for="Customer.StreetAddress" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Customer.City" class="control-label"></label>
+                    <input asp-for="Customer.City" class="form-control" value=@Model.Customer.City placeholder="Enter customers city" />
+                    <span asp-validation-for="Customer.City" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Customer.State" class="control-label"></label>
+                    <input asp-for="Customer.State" class="form-control" value=@Model.Customer.State placeholder="Enter customers state" />
+                    <span asp-validation-for="Customer.State" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Customer.ZipCode" class="control-label"></label>
+                    <input asp-for="Customer.ZipCode" class="form-control" value=@Model.Customer.ZipCode placeholder="Enter customers zip code" />
+                    <span asp-validation-for="Customer.ZipCode" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Customer.PhoneNumber" class="control-label"></label>
+                    <input asp-for="Customer.PhoneNumber" class="form-control" value=@Model.Customer.PhoneNumber placeholder="Enter customers phone number" />
+                    <span asp-validation-for="Customer.PhoneNumber" class="text-danger"></span>
+                </div>
+            </div>
+            <div id="invoiceItemsWrapper" class="form-group">
+                <label class="control-label m-2"><b>Invoice Items</b></label>
+                <table class="table thead-light">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Quantity</th>
+                            <th>Price per unit (CZK)</th>
+                            <th>Total price (CZK)</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody id="invoiceItemsBody">
+                        @for (int i = 0; i < Model.Items.Count; i++)
+                        {
+                            <tr id=@i>
+                                <td style="display: none">
+                                    <input name="Items.Index" type="hidden" value=@i />
+                                </td>
+                                <td>
+                                    <input name="Items[@i].Name" value=@Model.Items[i].Name readonly class="form-control" />
+                                </td>
+                                <td>
+                                    <input name="Items[@i].Quantity" value=@Model.Items[i].Quantity readonly class="form-control" />
+                                </td>
+                                <td>
+                                    <input name="Items[@i].PricePerUnit" value=@Model.Items[i].PricePerUnit readonly class="form-control" />
+                                </td>
+                                <td>
+                                    <input name="Items[@i].Total" value=@Model.Items[i].Total readonly class="form-control" />
+                                </td>
+                                <td><a onclick="removeElementyByID(@i)" class="btn btn-danger text-white">X</a></td>
+                            </tr>
+                        }
+                        <script>
+                            invoiceItemId = @Model.Items.Count;
+                        </script>
+                        <tr id="invoiceItemAddRow">
+                            <td>
+                                <input class="form-control" type="text" id="newInvoiceItemName" placeholder="Name of the item" />
+                            </td>
+                            <td>
+                                <input class="form-control" type="number" id="newInvoiceItemQuantity" placeholder="Quantity" />
+                            </td>
+                            <td>
+                                <input class="form-control" type="number" id="newInvoiceItemPrice" placeholder="Price per unit" />
+                            </td>
+                            <td>
+                                <span id="newInvoiceItemTotalPrice">0</span> CZK
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <a id="btnAddNewItem" class="btn btn-info m-2 text-white">Add</a>
             </div>
             <div class="form-group">
                 <label asp-for="Tax" class="control-label"></label>
-                <input asp-for="Tax" class="form-control" />
+                <select id="Tax" class="custom-select" name="Tax">
+                    <option value="10">10%</option>
+                    <option value="15">15%</option>
+                    <option value="18">18%</option>
+                    <option value="21">21%</option>
+                </select>
                 <span asp-validation-for="Tax" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -39,7 +132,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Edit" class="btn btn-default" />
             </div>
         </form>
     </div>
@@ -48,4 +141,3 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
