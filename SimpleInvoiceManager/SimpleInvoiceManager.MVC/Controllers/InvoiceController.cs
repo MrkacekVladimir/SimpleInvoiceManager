@@ -44,8 +44,9 @@ namespace SimpleInvoiceManager.MVC.Controllers
 
             StringContent content = new StringContent(JsonConvert.SerializeObject(invoice), System.Text.Encoding.UTF8, "application/json");
             HttpResponseMessage response = await _client.PatchAsync("invoice/patchinvoice", content);
+            //HttpResponseMessage response = await _client.PutAsync("invoice/patchinvoice", content);
 
-            if(response.StatusCode == System.Net.HttpStatusCode.OK)
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 return RedirectToAction("Index", "Home");
 
             return RedirectToAction("Index", "Home");

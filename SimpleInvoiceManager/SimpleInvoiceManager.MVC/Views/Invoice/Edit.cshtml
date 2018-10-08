@@ -28,6 +28,8 @@
             <div id="customerWrapper">
                 <label class="control-label m-2"><b>Customer</b></label>
                 <hr />
+                <input asp-for="CustomerID" type="hidden" value="@Model.CustomerID" />
+                <input asp-for="Customer.ID" type="hidden" value="@Model.Customer.ID" />
                 <div class="form-group">
                     <label asp-for="Customer.Name" class="control-label"></label>
                     <input asp-for="Customer.Name" class="form-control" value=@Model.Customer.Name placeholder="Enter customers company name" />

@@ -35,12 +35,12 @@ namespace SimpleInvoiceManager.WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetByID(int? id)
+        public async Task<IActionResult> GetByID(int id)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            Invoice invoice = await _context.Invoices
+            Invoice invoice = await _context.Invoices                
                 .Include(c => c.Customer)
                 .Include(i => i.Items)
                 .FirstOrDefaultAsync(x => x.ID == id);
@@ -72,15 +72,16 @@ namespace SimpleInvoiceManager.WebApi.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-
+            
             _context.Entry(invoice).State = EntityState.Modified;
+            _context.Entry(invoice.Customer).State = EntityState.Modified;            
             await _context.SaveChangesAsync();
 
             return Ok();
         }
 
         [HttpPatch]
-        public async Task<IActionResult> PayInvoiceByID(int? id)
+        public async Task<IActionResult> PayInvoiceByID(int id)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
