@@ -13,7 +13,7 @@
                 <th>Total Price</th>
                 <th>Invoice Date</th>
                 <th>Payment Due Date</th>
-                <th colspan="2">Actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -29,12 +29,7 @@
                         <a class="btn btn-info" asp-action="Edit" asp-controller="Invoice" asp-route-id=@invoice.ID>
                             Details
                         </a>
-                    </td>
-                    <td>
-                        <a class="btn btn-info" asp-action="Edit" asp-controller="Invoice" asp-route-id=@invoice.ID>
-                            Details
-                        </a>
-                    </td>
+                    </td>                    
                 </tr>
             }
         </tbody>

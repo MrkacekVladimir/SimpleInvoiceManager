@@ -13,7 +13,7 @@ namespace SimpleInvoiceManager.DAO.Extensions
             //TODO: Apply all entity configurations in assembly
             builder.ApplyConfiguration(new CustomerConfiguration());
             builder.ApplyConfiguration(new InvoiceConfiguration());
-            builder.ApplyConfiguration(new InvoiceItemConfiguration);
+            builder.ApplyConfiguration(new InvoiceItemConfiguration());
 
             return builder;
         }

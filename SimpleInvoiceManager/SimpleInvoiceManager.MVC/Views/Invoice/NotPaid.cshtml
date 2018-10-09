@@ -10,7 +10,7 @@
                 <th>Total Price</th>
                 <th>Invoice Date</th>
                 <th>Payment Due Date</th>
-                <th colspan="2">Actions</th>
+                <th style="text-align: center" colspan="2">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -23,7 +23,12 @@
                     <td>@invoice.InvoiceDate.ToShortDateString()</td>
                     <td>@invoice.PaymentDueDate.ToShortDateString()</td>
                     <td>
-                        <button asp-controller="Invoice" asp-action="Edit" asp-route-invoice=@invoice.ID>Details</button>
+                        <button class="btn btn-info" asp-controller="Invoice" asp-action="Edit" asp-route-invoice=@invoice.ID>Details</button>
+                    </td>
+                    <td>
+                        <a onclick="payInvoice(@invoice.ID)" class="btn btn-info">
+                            Pay
+                        </a>
                     </td>
                 </tr>
             }

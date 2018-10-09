@@ -111,3 +111,13 @@ function isEmptyOrSpaces(str) {
 function removeElementyByID(id) {    
     document.getElementById(id).remove();
 }
+
+function payInvoice(id) {
+    $.ajax({
+        type: "patch",
+        url: "/Invoice/PayInvoiceByID",
+        data: id,
+        success: function () {
+        }
+    });
+}
