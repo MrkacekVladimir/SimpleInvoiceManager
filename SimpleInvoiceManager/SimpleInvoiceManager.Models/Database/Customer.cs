@@ -6,25 +6,15 @@ using System.Text;
 
 namespace SimpleInvoiceManager.Models.Database
 {
-    public class Customer : DatabaseEntity
+    public class Customer
     {
-        [Required]
-        [DisplayName("Company name")]
-        public string Name { get; set; }        
-        [Required]
-        [DisplayName("Street address")]
+        public int ID { get; set; }
+        public string Name { get; set; }
         public string StreetAddress { get; set; }
-        [Required]
         public string City { get; set; }
-        [Required]
         public string State { get; set; }
-        [Required]
-        [DisplayName("Zip Code")]
-        [RegularExpression(@"[1-9]{1}[0-9]{2} [0-9]{2}$",ErrorMessage = "Type ZIP Code in correct format.(Eg. 123 45)")]
         public string ZipCode { get; set; }
-        [Required]
-        [Phone]
-        [DisplayName("Phone number")]
         public string PhoneNumber { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }

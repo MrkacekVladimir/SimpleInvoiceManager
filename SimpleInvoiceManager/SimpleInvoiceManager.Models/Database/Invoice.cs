@@ -6,28 +6,22 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SimpleInvoiceManager.Models.Database
 {
-    public class Invoice: DatabaseEntity
+    public class Invoice
     {
-        [Required]        
-        [DisplayName("Invoice number")]
+        public Invoice()
+        {
+            Items = new List<InvoiceItem>();
+        }
+        public int ID { get; set; }
         public int InvoiceNumber { get; set; }
         public int CustomerID { get; set; }
-        [Required]
-        [DataType(DataType.Date)]
-        [DisplayName("Invoice date")]
         public DateTime InvoiceDate { get; set; }
-        [Required]
-        [DataType(DataType.Date)]
-        [DisplayName("Payment due date")]
         public DateTime PaymentDueDate { get; set; }
-        [Required]        
         public int Tax { get; set; }
-        [Required]
-        [DisplayName("Paid")]
         public bool PaymentStatus { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         public List<InvoiceItem> Items { get; set; }
-        [ForeignKey("CustomerID")]
         public Customer Customer { get; set; }        
     }
 }

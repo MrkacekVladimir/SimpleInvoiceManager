@@ -17,12 +17,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="InvoiceDate" class="control-label"></label>
-                <input asp-for="InvoiceDate" value=@Model.InvoiceDate.ToString("yyyy-MM-dd") class="form-control" />
+                <input asp-for="InvoiceDate" type="date" value=@Model.InvoiceDate.ToString("yyyy-MM-dd") class="form-control" />
                 <span asp-validation-for="InvoiceDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PaymentDueDate" class="control-label"></label>
-                <input asp-for="PaymentDueDate" value=@Model.PaymentDueDate.ToString("yyyy-MM-dd") class="form-control" />
+                <input asp-for="PaymentDueDate" type="date" value=@Model.PaymentDueDate.ToString("yyyy-MM-dd") class="form-control" />
                 <span asp-validation-for="PaymentDueDate" class="text-danger"></span>
             </div>
             <div id="customerWrapper">

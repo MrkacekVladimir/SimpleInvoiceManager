@@ -3,6 +3,7 @@ using SimpleInvoiceManager.Models.Database;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using SimpleInvoiceManager.DAO.Extensions;
 
 namespace SimpleInvoiceManager.DAO
 {
@@ -18,10 +19,8 @@ namespace SimpleInvoiceManager.DAO
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {            
-            modelBuilder.Entity<Customer>().Property(p => p.CreatedAt).HasDefaultValueSql("GETDATE()").ValueGeneratedOnAdd();
-            modelBuilder.Entity<Invoice>().Property(p => p.CreatedAt).HasDefaultValueSql("GETDATE()").ValueGeneratedOnAdd();
-            modelBuilder.Entity<InvoiceItem>().Property(p => p.CreatedAt).HasDefaultValueSql("GETDATE()").ValueGeneratedOnAdd();
+        {
+            modelBuilder.ApplyAllEntityConfigurations();                                    
         }
 
         #region DbSets

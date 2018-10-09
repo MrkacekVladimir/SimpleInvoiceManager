@@ -6,15 +6,14 @@ using System.Text;
 
 namespace SimpleInvoiceManager.Models.Database
 {
-    public class InvoiceItem: DatabaseEntity
-    {        
+    public class InvoiceItem
+    {
+        public int ID { get; set; }
         public int InvoiceID { get; set; }
-        [Required]
         public string Name { get; set; }
-        [Required]
         public int Quantity { get; set; }
-        [Required]
         public float PricePerUnit { get; set; }        
         public float Total { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }
