@@ -92,7 +92,7 @@ namespace SimpleInvoiceManager.WebApi.Controllers
         }
 
         [HttpPatch]
-        public async Task<IActionResult> PayInvoiceByID(int id)
+        public async Task<IActionResult> PayInvoiceByID([FromBody]int id)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

@@ -114,10 +114,11 @@ function removeElementyByID(id) {
 
 function payInvoice(id) {
     $.ajax({
-        type: "patch",
-        url: "/Invoice/PayInvoiceByID",
-        data: id,
+        type: 'PATCH',
+        url: '/Invoice/PayInvoiceByID/',
+        data: { 'id': id },
         success: function () {
+            location.reload();
         }
     });
 }

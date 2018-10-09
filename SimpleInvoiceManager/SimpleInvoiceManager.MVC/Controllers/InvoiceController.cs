@@ -83,8 +83,7 @@ namespace SimpleInvoiceManager.MVC.Controllers
                 return BadRequest(ModelState);
 
             StringContent content = new StringContent(JsonConvert.SerializeObject(invoice), System.Text.Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await _client.PatchAsync("invoice/patchinvoice", content);
-            //HttpResponseMessage response = await _client.PutAsync("invoice/patchinvoice", content);
+            HttpResponseMessage response = await _client.PatchAsync("invoice/patchinvoice", content);            
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 return RedirectToAction("Index", "Home");
@@ -92,6 +91,17 @@ namespace SimpleInvoiceManager.MVC.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpPatch]
+        public async Task<IActionResult> PayInvoiceByID(int id)
+        {
+            StringContent content = new StringContent(JsonConvert.SerializeObject(id), System.Text.Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await _client.PatchAsync("invoice/PayInvoiceByID", content);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                return Ok(); ;
+
+            return RedirectToAction("Index", "Home");
+        }
         #endregion
     }
 }
