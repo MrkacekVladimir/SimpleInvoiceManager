@@ -7,8 +7,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 
 namespace SimpleInvoiceManager.WebApi.Helpers
-{
-    // You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
+{    
     public class SecureKeyMiddleware
     {
         private readonly RequestDelegate _next;
@@ -21,8 +20,7 @@ namespace SimpleInvoiceManager.WebApi.Helpers
         }
 
         public Task Invoke(HttpContext httpContext)
-        {
-            string secureKey = "PragueLabsSecretAPIKey";
+        {            
             IHeaderDictionary headers = httpContext.Request.Headers;
             bool contains = headers.ContainsKey("secureKey");
             if (!contains || headers["secureKey"] != _secureKey)

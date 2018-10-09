@@ -95,9 +95,6 @@
                                 <td><a onclick="removeElementyByID(@i)" class="btn btn-danger text-white">X</a></td>
                             </tr>
                         }
-                        <script>
-                            invoiceItemId = @Model.Items.Count;
-                        </script>
                         <tr id="invoiceItemAddRow">
                             <td>
                                 <input class="form-control" type="text" id="newInvoiceItemName" placeholder="Name of the item" />
@@ -114,6 +111,9 @@
                         </tr>
                     </tbody>
                 </table>
+                <script type="text/javascript">
+                            invoiceItemId = @Model.Items.Count;
+                </script>
                 <a id="btnAddNewItem" class="btn btn-info m-2 text-white">Add</a>
             </div>
             <div class="form-group">

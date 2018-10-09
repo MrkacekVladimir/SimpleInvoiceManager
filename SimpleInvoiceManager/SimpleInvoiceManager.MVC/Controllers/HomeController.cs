@@ -20,6 +20,9 @@ namespace SimpleInvoiceManager.MVC.Controllers
 
         #endregion
 
+        #region HttpGet Actions
+        
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             HttpResponseMessage response = await _client.GetAsync("invoice/getall");
@@ -27,5 +30,7 @@ namespace SimpleInvoiceManager.MVC.Controllers
             List<Invoice> Invoices = JsonConvert.DeserializeObject<List<Invoice>>(content);
             return View(Invoices);
         }
+
+        #endregion
     }
 }

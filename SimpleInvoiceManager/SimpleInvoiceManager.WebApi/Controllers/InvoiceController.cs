@@ -25,11 +25,25 @@ namespace SimpleInvoiceManager.WebApi.Controllers
         private readonly DatabaseContext _context;
         #endregion
 
+        #region HttpGet Actions
+        
+        [HttpGet]
         public async Task<JsonResult> GetAll()
         {
             List<Invoice> invoices = await _context.Invoices
                 .Include(c => c.Customer)
                 .Include(i => i.Items)
+                .ToListAsync();
+            return Json(invoices);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetNotPaid()
+        {
+            List<Invoice> invoices = await _context.Invoices
+                .Include(c => c.Customer)
+                .Include(i => i.Items)
+                .Where(x => x.PaymentStatus == false)
                 .ToListAsync();
             return Json(invoices);
         }
@@ -45,7 +59,11 @@ namespace SimpleInvoiceManager.WebApi.Controllers
                 .Include(i => i.Items)
                 .FirstOrDefaultAsync(x => x.ID == id);
             return Json(invoice);
-        }        
+        }
+
+        #endregion
+
+        #region HttpPost Actions        
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody]Invoice invoice)
@@ -56,16 +74,9 @@ namespace SimpleInvoiceManager.WebApi.Controllers
             return Ok();
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetNotPaid()
-        {
-            List<Invoice> invoices = await _context.Invoices
-                .Include(c => c.Customer)
-                .Include(i => i.Items)
-                .Where(x => x.PaymentStatus == false)
-                .ToListAsync();
-            return Json(invoices);
-        }
+        #endregion
+
+        #region HttpPatch Actions
 
         [HttpPatch]
         public async Task<IActionResult> PatchInvoice([FromBody]Invoice invoice)
@@ -94,5 +105,7 @@ namespace SimpleInvoiceManager.WebApi.Controllers
 
             return Ok();
         }
+
+        #endregion
     }
 }

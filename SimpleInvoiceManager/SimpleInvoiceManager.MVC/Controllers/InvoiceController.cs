@@ -20,6 +20,9 @@ namespace SimpleInvoiceManager.MVC.Controllers
 
         #endregion
 
+        #region HttpGet Actions  
+        
+        [HttpGet]
         public IActionResult Index()
         {
             return RedirectToAction("Index", "Home");
@@ -36,6 +39,43 @@ namespace SimpleInvoiceManager.MVC.Controllers
 
             return View(JsonConvert.DeserializeObject<Invoice>(content));
         }
+
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> NotPaid()
+        {
+            HttpResponseMessage response = await _client.GetAsync("invoice/getnotpaid/");
+            string content = await response.Content.ReadAsStringAsync();
+            List<Invoice> Invoices = JsonConvert.DeserializeObject<List<Invoice>>(content);
+            return View(Invoices);
+        }
+
+        #endregion
+
+        #region HttpPost Actions
+        
+        [HttpPost]
+        public async Task<IActionResult> Create(Invoice invoice)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            StringContent content = new StringContent(JsonConvert.SerializeObject(invoice), System.Text.Encoding.UTF8, "application/json");            
+            HttpResponseMessage response = await _client.PostAsJsonAsync<Invoice>("invoice/create", invoice);
+
+            if(response.StatusCode == System.Net.HttpStatusCode.Created)
+                return RedirectToAction("Index", "Home");
+
+            return RedirectToAction("Index", "Home");
+        }
+
         [HttpPost]
         public async Task<IActionResult> Edit(Invoice invoice)
         {
@@ -52,36 +92,6 @@ namespace SimpleInvoiceManager.MVC.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpGet]
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create(Invoice invoice)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            StringContent content = new StringContent(JsonConvert.SerializeObject(invoice), System.Text.Encoding.UTF8, "application/json");            
-            HttpResponseMessage response = await _client.PostAsJsonAsync<Invoice>("invoice/create", invoice);
-
-            if(response.StatusCode == System.Net.HttpStatusCode.Created)
-                return RedirectToAction("Index", "Home");
-
-            return RedirectToAction("Index", "Home");
-        }
-
-
-        public async Task<IActionResult> NotPaid()
-        {
-            HttpResponseMessage response = await _client.GetAsync("invoice/getnotpaid/");
-            string content = await response.Content.ReadAsStringAsync();
-            List<Invoice> Invoices = JsonConvert.DeserializeObject<List<Invoice>>(content);
-            return View(Invoices);
-        }
-
-
+        #endregion
     }
 }
