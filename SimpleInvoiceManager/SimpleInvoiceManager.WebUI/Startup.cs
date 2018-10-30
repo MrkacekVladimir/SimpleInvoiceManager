@@ -1,6 +1,4 @@
-﻿using Autofac;
-using Autofac.Extensions.DependencyInjection;
-using FluentValidation.AspNetCore;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -20,7 +18,7 @@ namespace SimpleInvoiceManager.WebUI
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -29,17 +27,18 @@ namespace SimpleInvoiceManager.WebUI
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddAuthentication(options => {
+                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultSignOutScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            })
+                .AddCookie(options => {
+                    options.LoginPath = "/auth/login";
+                });
 
             services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-                .AddFluentValidation();
-            
-            #region Autofac Configuration            
-            ContainerBuilder builder = new ContainerBuilder();
-
-            IContainer container = builder.Build();
-            return new AutofacServiceProvider(container);
-            #endregion
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);                                        
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

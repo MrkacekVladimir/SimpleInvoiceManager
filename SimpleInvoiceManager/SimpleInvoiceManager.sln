@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleInvoiceManager.Models
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleInvoiceManager.DAO", "SimpleInvoiceManager.DAO\SimpleInvoiceManager.DAO.csproj", "{BA96443C-B8BE-4CFE-AA89-2C5966A2D6A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleInvoiceManager.WebUI", "SimpleInvoiceManager.WebUI\SimpleInvoiceManager.WebUI.csproj", "{D4533F85-6FF9-422E-ADFC-05171AEAC9D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleInvoiceManager.WebUI", "SimpleInvoiceManager.WebUI\SimpleInvoiceManager.WebUI.csproj", "{D4533F85-6FF9-422E-ADFC-05171AEAC9D5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C6914998-9F06-4D1D-9A31-42F14576342E}"
 EndProject
@@ -21,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{90
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{3CD3492F-9516-40F1-BC59-8E3482441681}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleInvoiceManager.Core", "SimpleInvoiceManager.Core\SimpleInvoiceManager.Core.csproj", "{BE92188D-8E83-402B-9A6B-0EE78674548F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleInvoiceManager.Core", "SimpleInvoiceManager.Core\SimpleInvoiceManager.Core.csproj", "{BE92188D-8E83-402B-9A6B-0EE78674548F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
